@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+  <title>Student Dashboard</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{% static 'student/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
   <link rel="stylesheet" href="{% static 'student/vendors/css/vendor.bundle.base.css' %}">
@@ -25,14 +25,14 @@
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
         <a class="navbar-brand brand-logo" href="{% static 'student/base_student.html' %}">
-          <img src="{% static 'student/images/logo.svg' %}" alt="logo" />
+          <!--<img src="{% static 'student/images/logo.svg' %}" alt="logo" />-->
         </a>
         <a class="navbar-brand brand-logo-mini" href="{% static 'student/base_student.html' %}">
-          <img src="{% static 'student/images/logo-mini.svg' %}" alt="logo" />
+          <!--<img src="{% static 'student/images/logo-mini.svg' %}" alt="logo" />-->
         </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
-        <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+        <!--<ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
           <li class="nav-item">
             <a href="#" class="nav-link">Schedule
               <span class="badge badge-primary ml-1">New</span>
@@ -46,9 +46,9 @@
             <a href="#" class="nav-link">
               <i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
           </li>
-        </ul>
+        </ul>-->
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item dropdown">
+          <!--<li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <i class="mdi mdi-file-document-box"></i>
               <span class="count">7</span>
@@ -102,7 +102,7 @@
                 </div>
               </a>
             </div>
-          </li>
+          </li>-->
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell"></i>
@@ -164,7 +164,7 @@
               <img class="img-xs rounded-circle" src="{% static 'student/images/faces/face1.jpg' %}" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-              <a class="dropdown-item p-0">
+              <!--<a class="dropdown-item p-0">
                 <div class="d-flex border-bottom">
                   <div class="py-3 px-4 d-flex align-items-center justify-content-center">
                     <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
@@ -176,18 +176,11 @@
                     <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
                   </div>
                 </div>
-              </a>
-              <a class="dropdown-item mt-2">
-                Manage Accounts
-              </a>
-              <a class="dropdown-item">
+              </a>-->
+              <a class="dropdown-item" style="margin-top: 20px">
                 Change Password
               </a>
-              <a class="dropdown-item">
-                Check Inbox
-              </a>
-              <a class="dropdown-item">
-                Sign Out
+              <a class="dropdown-item" href="{% url 'logout' %}" data-toggle="modal" data-target="#logoutModal">Sign Out
               </a>
             </div>
           </li>
@@ -203,7 +196,7 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item nav-profile">
-            <div class="nav-link">
+            <div class="nav-link" style="margin-bottom: -30px">
               <div class="user-wrapper">
                 <div class="profile-image">
                   <img src="{% static 'student/images/faces/face1.jpg' %}" alt="profile image">
@@ -216,18 +209,18 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success btn-block">New Project
+              <!--<button class="btn btn-success btn-block">New Project
                 <i class="mdi mdi-plus"></i>
-              </button>
+              </button>-->
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% static 'student/base_student.html' %}">
-              <i class="menu-icon mdi mdi-television"></i>
-              <span class="menu-title">Dashboard</span>
+            <a class="nav-link" href="{% static 'student/pages/forms/profile.html' %}">
+              <i class="menu-icon mdi mdi-backup-restore"></i>
+              <span class="menu-title">My Profile</span>
             </a>
           </li>
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon mdi mdi-content-copy"></i>
               <span class="menu-title">Basic UI Elements</span>
@@ -255,20 +248,26 @@
               <i class="menu-icon mdi mdi-chart-line"></i>
               <span class="menu-title">Charts</span>
             </a>
-          </li>
+          </li>-->
           <li class="nav-item">
-            <a class="nav-link" href="{% static 'student/pages/tables/basic-table.html' %}">
+            <a class="nav-link" href="{% static 'student/pages/tables/companies.html' %}">
               <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Companies</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% static 'student/pages/icons/font-awesome.html' %}">
               <i class="menu-icon mdi mdi-sticker"></i>
-              <span class="menu-title">Icons</span>
+              <span class="menu-title">Notices</span>
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{% static 'student/pages/icons/font-awesome.html' %}">
+              <i class="menu-icon mdi mdi-sticker"></i>
+              <span class="menu-title">Lists</span>
+            </a>
+          </li>
+          <!--<li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="menu-icon mdi mdi-restart"></i>
               <span class="menu-title">User Pages</span>
@@ -293,13 +292,13 @@
                 </li>
               </ul>
             </div>
-          </li>
+          </li>-->
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row purchace-popup">
+          <!--<div class="row purchace-popup">
             <div class="col-12">
               <span class="d-block d-md-flex align-items-center">
                 <p>Like what you see? Check out our premium version for more.</p>
@@ -308,7 +307,7 @@
                 <i class="mdi mdi-close popup-dismiss d-none d-md-block"></i>
               </span>
             </div>
-          </div>
+          </div>-->
           <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
@@ -870,7 +869,7 @@
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-        <footer class="footer">
+        <!--<footer class="footer">
           <div class="container-fluid clearfix">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
               <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
@@ -878,7 +877,7 @@
               <i class="mdi mdi-heart text-danger"></i>
             </span>
           </div>
-        </footer>
+        </footer>-->
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
@@ -886,7 +885,22 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to sign out?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="{% url 'logout' %}">Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- plugins:js -->
   <script src="{% static 'student/vendors/js/vendor.bundle.base.js' %}"></script>
   <script src="{% static 'student/vendors/js/vendor.bundle.addons.js' %}"></script>
