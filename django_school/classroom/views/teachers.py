@@ -30,6 +30,13 @@ class TeacherSignUpView(CreateView):
         login(self.request, user)
         return redirect('teachers:quiz_change_list')
 
+def Dashboard(request):
+    return(render(request, 'classroom/teachers/Dashboard/dashboard.html'))
+
+
+def Charts(request):
+    return(render(request, 'classroom/teachers/Charts/chartjs.html'))
+
 
 @method_decorator([login_required, teacher_required], name='dispatch')
 class QuizListView(ListView):
@@ -50,7 +57,7 @@ class PlacementListView(ListView):
     model = Placement
     ordering = ('company_name', 'package' )
     context_object_name = 'placements'
-    template_name = 'classroom/teachers/placement_change_list.html'
+    template_name = 'classroom/teachers/placements/placement_change_list.html'
 
     def get_queryset(self):
         queryset = self.request.user.placements \
@@ -74,7 +81,7 @@ class QuizCreateView(CreateView):
 class PlacementCreateView(CreateView):
     model = Placement
     fields = ('company_name', 'package')
-    template_name = 'classroom/teachers/placement_add_form.html'
+    template_name = 'classroom/teachers/placements/placement_add_form.html'
 
     def form_valid(self, form):
         placement = form.save(commit=False)
@@ -111,7 +118,7 @@ class PlacementUpdateView(UpdateView):
     model = Placement
     fields = ('company_name', 'package')
     context_object_name = 'placement'
-    template_name = 'classroom/teachers/placement_change_form.html'
+    template_name = 'classroom/teachers/placements/placement_change_form.html'
 
     def get_context_data(self, **kwargs):
         kwargs['selected_lists'] = self.get_object().selected_lists.all()
@@ -149,7 +156,7 @@ class QuizDeleteView(DeleteView):
 class PlacementDeleteView(DeleteView):
     model = Placement
     context_object_name = 'placement'
-    template_name = 'classroom/teachers/placement_delete_confirm.html'
+    template_name = 'classroom/teachers/placements/placement_delete_confirm.html'
     success_url = reverse_lazy('teachers:placement_change_list')
 
     def delete(self, request, *args, **kwargs):
@@ -198,7 +205,7 @@ def upload_csv(request, pk):
     }
 
     if request.method == 'GET':
-        return render(request, 'classroom/teachers/list_add_form.html',prompt)
+        return render(request, 'classroom/teachers/placements/list_add_form.html',prompt)
     if request.method == 'POST':
         csv_file = request.FILES['file']
 
@@ -212,15 +219,8 @@ def upload_csv(request, pk):
             print(column[0],column[1])
             b = Selected_lists(placement=placement, roll_no=column[0], name=column[1])
             b.save()
-            '''
-            _,created = Selected_lists.objects.create(
-                placement = placement,
-                roll_no = column[0],
-                name = column[1]
-                )        
-            '''
-
-    return render(request, 'classroom/teachers/list_add_form.html', {'placement': placement})
+            messages.success(request, 'List has been uploaded successfully!!')
+    return render(request, 'classroom/teachers/placements/list_add_form.html', {'placement': placement})
 
 
 
@@ -247,7 +247,51 @@ def question_add(request, pk):
     else:
         form = QuestionForm()
 
-    return render(request, 'classroom/teachers/question_add_form.html', {'quiz': quiz, 'form': form})
+    return render(request, 'classroom/teachers/placements/question_add_form.html', {'quiz': quiz, 'form': form})
+
+
+
+
+@login_required
+@teacher_required
+def student_change(request, placement_pk, selected_lists_pk):
+    # Simlar to the `question_add` view, this view is also managing
+    # the permissions at object-level. By querying both `quiz` and
+    # `question` we are making sure only the owner of the quiz can
+    # change its details and also only questions that belongs to this
+    # specific quiz can be changed via this url (in cases where the
+    # user might have forged/player with the url params.
+    placement = get_object_or_404(Placement, pk=placement_pk, owner=request.user)
+    selected_lists = get_object_or_404(Selected_lists, pk=selected_lists_pk, placement=placement)
+    '''
+    AnswerFormSet = inlineformset_factory(
+        Question,  # parent model
+        Answer,  # base model
+        formset=BaseAnswerInlineFormSet,
+        fields=('text', 'is_correct'),
+        min_num=2,
+        validate_min=True,
+        max_num=10,
+        validate_max=True
+    )
+
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, instance=question)
+        formset = AnswerFormSet(request.POST, instance=question)
+        if form.is_valid() and formset.is_valid():
+            with transaction.atomic():
+                form.save()
+                formset.save()
+            messages.success(request, 'Question and answers saved with success!')
+            return redirect('teachers:quiz_change', quiz.pk)
+    else:
+        form = QuestionForm(instance=question)
+        formset = AnswerFormSet(instance=question)
+    '''
+    return render(request, 'classroom/teachers/placements/student_change_form.html', {
+        'placement': placement,
+        'selected_lists': selected_lists,
+    })
 
 
 @login_required
@@ -292,6 +336,37 @@ def question_change(request, quiz_pk, question_pk):
         'form': form,
         'formset': formset
     })
+
+
+
+
+
+
+
+@method_decorator([login_required, teacher_required], name='dispatch')
+class StudentDeleteView(DeleteView):
+    model = Selected_lists
+    context_object_name = 'selected'
+    template_name = 'classroom/teachers/student_delete_confirm.html'
+    pk_url_kwarg = 'selected_lists_pk'
+
+    def get_context_data(self, **kwargs):
+        selected = self.get_object()
+        kwargs['placement'] = selected.placement
+        return super().get_context_data(**kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        selected = self.get_object()
+        messages.success(request, 'The student %s was deleted with success!' % selected.roll_no)
+        return super().delete(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Selected_lists.objects.filter(placement__owner=self.request.user)
+
+    def get_success_url(self):
+        selected = self.get_object()
+        return reverse('teachers:placement_change', kwargs={'pk': selected.placement_id})
+
 
 
 @method_decorator([login_required, teacher_required], name='dispatch')

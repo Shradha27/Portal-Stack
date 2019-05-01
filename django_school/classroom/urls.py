@@ -13,8 +13,10 @@ urlpatterns = [
     ], 'classroom'), namespace='students')),
 
     path('teachers/', include(([
-        path('', teachers.PlacementListView.as_view(), name='placement_change_list'),
-        path('/list', teachers.QuizListView.as_view(), name='quiz_change_list'),
+        path('', teachers.Dashboard, name='dashboard'),
+        path('charts/', teachers.Charts, name='charts'),
+        path('placement/', teachers.PlacementListView.as_view(), name='placement_change_list'),
+        path('quiz/', teachers.QuizListView.as_view(), name='quiz_change_list'),
         path('placement/add/', teachers.PlacementCreateView.as_view(), name='placement_add'),
         path('quiz/add/', teachers.QuizCreateView.as_view(), name='quiz_add'),
         path('placement/<int:pk>/', teachers.PlacementUpdateView.as_view(), name='placement_change'),
@@ -24,7 +26,9 @@ urlpatterns = [
         path('quiz/<int:pk>/results/', teachers.QuizResultsView.as_view(), name='quiz_results'),
         path('placement/<int:pk>/list/add/', teachers.upload_csv, name='list_add'),
         path('quiz/<int:pk>/question/add/', teachers.question_add, name='question_add'),
+        path('placement/<int:placement_pk>/selected_lists/<int:selected_lists_pk>/', teachers.student_change, name='student_change'),
         path('quiz/<int:quiz_pk>/question/<int:question_pk>/', teachers.question_change, name='question_change'),
+        path('placement/<int:placement_pk>/list/<int:selected_lists_pk>/delete/', teachers.StudentDeleteView.as_view(), name='student_delete'),
         path('quiz/<int:quiz_pk>/question/<int:question_pk>/delete/', teachers.QuestionDeleteView.as_view(), name='question_delete'),
     ], 'classroom'), namespace='teachers')),
 ]

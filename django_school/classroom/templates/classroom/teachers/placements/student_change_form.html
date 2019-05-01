@@ -1,0 +1,20 @@
+{% extends 'base_teacher.html' %}
+
+{% load crispy_forms_tags crispy_forms_filters %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'teachers:placement_change_list' %}">My Placements</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'teachers:placement_change' placement.pk %}">{{ placement.company_name }}</a> </li>
+      <li class="breadcrumb-item active" aria-current="page">{{ selected_lists.roll_no }}</li>
+    </ol>
+  </nav>
+  <h3 class="mb-3">{{ selected_lists.name }}  - {{selected_lists.roll_no}} </h3>
+    
+    </p>
+    <button type="submit" class="btn btn-success">Save changes</button>
+    <a href="{% url 'teachers:placement_change' placement.pk %}" class="btn btn-outline-secondary" role="button">Nevermind</a>
+    <a href="{% url 'teachers:student_delete' placement.pk selected_lists.pk %}" class="btn btn-danger float-right">Delete</a>
+  </form>
+{% endblock %}
