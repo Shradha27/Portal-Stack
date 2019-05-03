@@ -1,3 +1,4 @@
+import csv,io
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -7,12 +8,10 @@ from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  UpdateView)
-
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView, UpdateView)
 from ..decorators import teacher_required
 from ..forms import BaseAnswerInlineFormSet, QuestionForm, TeacherSignUpForm
-from ..models import Answer, Question, Quiz, User
+from ..models import Answer, Question, Quiz, User, Placement, Selected_lists
 
 
 class TeacherSignUpView(CreateView):
@@ -29,6 +28,19 @@ class TeacherSignUpView(CreateView):
         login(self.request, user)
         return redirect('teachers:quiz_change_list')
 
+@login_required
+@teacher_required
+def dashboard(request):
+    return render(request,'classroom/teachers/dashboard/dashboard.html')
+
+
+@login_required
+@teacher_required
+def charts(request):
+    return render(request,'classroom/teachers/Charts/chartjs.html')
+
+
+
 
 @method_decorator([login_required, teacher_required], name='dispatch')
 class QuizListView(ListView):
@@ -44,6 +56,18 @@ class QuizListView(ListView):
             .annotate(taken_count=Count('taken_quizzes', distinct=True))
         return queryset
 
+@method_decorator([login_required, teacher_required], name='dispatch')
+class PlacementListView(ListView):
+    model = Placement
+    ordering = ('company_name', 'package' )
+    context_object_name = 'placements'
+    template_name = 'classroom/teachers/Placement/placement_change_list.html'
+
+    def get_queryset(self):
+        queryset = self.request.user.placements \
+            .annotate(selected_count=Count('selected_lists', distinct=True))
+        return queryset
+
 
 @method_decorator([login_required, teacher_required], name='dispatch')
 class QuizCreateView(CreateView):
@@ -57,6 +81,19 @@ class QuizCreateView(CreateView):
         quiz.save()
         messages.success(self.request, 'The quiz was created with success! Go ahead and add some questions now.')
         return redirect('teachers:quiz_change', quiz.pk)
+
+@method_decorator([login_required, teacher_required], name='dispatch')
+class PlacementCreateView(CreateView):
+    model = Placement
+    fields = ('company_name', 'package')
+    template_name = 'classroom/teachers/Placement/placement_add_form.html'
+
+    def form_valid(self, form):
+        placement = form.save(commit=False)
+        placement.owner = self.request.user
+        placement.save()
+        messages.success(self.request, 'The company detail was created with success! Go ahead and add list of selected students now.')
+        return redirect('teachers:placement_change', placement.pk)
 
 
 @method_decorator([login_required, teacher_required], name='dispatch')
@@ -81,6 +118,29 @@ class QuizUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('teachers:quiz_change', kwargs={'pk': self.object.pk})
 
+@method_decorator([login_required, teacher_required], name='dispatch')
+class PlacementUpdateView(UpdateView):
+    model = Placement
+    fields = ('company_name', 'package')
+    context_object_name = 'placement'
+    template_name = 'classroom/teachers/Placement/placement_change_form.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['selected_lists'] = self.get_object().selected_lists.all()
+        return super().get_context_data(**kwargs)
+
+    def get_queryset(self):
+        '''
+        This method is an implicit object-level permission management
+        This view will only match the ids of existing quizzes that belongs
+        to the logged in user.
+        '''
+        
+        return self.request.user.placements.all()
+
+    def get_success_url(self):
+        return reverse('teachers:placement_change', kwargs={'pk': self.object.pk})
+
 
 @method_decorator([login_required, teacher_required], name='dispatch')
 class QuizDeleteView(DeleteView):
@@ -96,6 +156,23 @@ class QuizDeleteView(DeleteView):
 
     def get_queryset(self):
         return self.request.user.quizzes.all()
+
+@method_decorator([login_required, teacher_required], name='dispatch')
+class PlacementDeleteView(DeleteView):
+    model = Placement
+    context_object_name = 'placement'
+    template_name = 'classroom/teachers/Placement/placement_delete_confirm.html'
+    success_url = reverse_lazy('teachers:placement_change_list')
+
+    def delete(self, request, *args, **kwargs):
+        placement = self.get_object()
+        messages.success(request, 'The placement %s was deleted with success!' % placement.company_name)
+        return super().delete(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.request.user.placements.all()
+
+
 
 
 @method_decorator([login_required, teacher_required], name='dispatch')
@@ -142,6 +219,39 @@ def question_add(request, pk):
         form = QuestionForm()
 
     return render(request, 'classroom/teachers/question_add_form.html', {'quiz': quiz, 'form': form})
+
+@login_required
+@teacher_required
+def upload_csv(request, pk):
+    # By filtering the quiz by the url keyword argument `pk` and
+    # by the owner, which is the logged in user, we are protecting
+    # this view at the object-level. Meaning only the owner of
+    # quiz will be able to add questions to it.
+    placement = get_object_or_404(Placement, pk=pk, owner=request.user)
+    prompt = {
+    'order' : 'Order of CSV should be Roll No, Name',
+    'placement' : placement
+    }
+
+    if request.method == 'GET':
+        return render(request, 'classroom/teachers/Placement/list_add_form.html',prompt)
+    if request.method == 'POST':
+        csv_file = request.FILES['file']
+
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, 'This is not a  CSV file')
+
+        data_set = csv_file.read().decode('UTF-8')
+        io_string = io.StringIO(data_set)
+        next(io_string)
+        for column in csv.reader(io_string, delimiter=',', quotechar='|'):
+            print(column[0],column[1])
+            b = Selected_lists(placement=placement, roll_no=column[0], name=column[1])
+            b.save()
+
+    return render(request, 'classroom/teachers/Placement/list_add_form.html', {'placement': placement})
+
+
 
 
 @login_required
@@ -211,3 +321,27 @@ class QuestionDeleteView(DeleteView):
     def get_success_url(self):
         question = self.get_object()
         return reverse('teachers:quiz_change', kwargs={'pk': question.quiz_id})
+
+@method_decorator([login_required, teacher_required], name='dispatch')
+class StudentDeleteView(DeleteView):
+    model = Selected_lists
+    context_object_name = 'selected'
+    template_name = 'classroom/teachers/Placement/student_delete_confirm.html'
+    pk_url_kwarg = 'selected_lists_pk'
+
+    def get_context_data(self, **kwargs):
+        selected = self.get_object()
+        kwargs['placement'] = selected.placement
+        return super().get_context_data(**kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        selected = self.get_object()
+        messages.success(request, 'The question %s was deleted with success!' % selected.name)
+        return super().delete(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Selected_lists.objects.filter(placement__owner=self.request.user)
+
+    def get_success_url(self):
+        selected = self.get_object()
+        return reverse('teachers:placement_change', kwargs={'pk': selected.placement_id})

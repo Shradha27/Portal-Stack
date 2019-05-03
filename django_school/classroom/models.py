@@ -30,6 +30,13 @@ class Quiz(models.Model):
     def __str__(self):
         return self.name
 
+class Placement(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='placements')
+    company_name = models.CharField(max_length=255)
+    package = models.FloatField()
+
+    def __str__(self):
+        return self.company_name
 
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
@@ -38,7 +45,14 @@ class Question(models.Model):
     def __str__(self):
         return self.text
 
+class Selected_lists(models.Model):
+    placement = models.ForeignKey(Placement, on_delete=models.CASCADE, related_name='selected_lists')
+    roll_no = models.CharField(max_length=10)
+    name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+        
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     text = models.CharField('Answer', max_length=255)

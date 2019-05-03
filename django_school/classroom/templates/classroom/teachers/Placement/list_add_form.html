@@ -1,0 +1,30 @@
+{% extends 'base_teacher.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'teachers:placement_change_list' %}">My Placemments</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'teachers:placement_change' placement.pk %}">{{ placement.company_name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Upload a list</li>
+    </ol>
+  </nav>
+  {% if messages %}
+    {% for messages in messages %}
+      <div>
+        <strong>{{message|safe}}</strong>
+      </div>
+    {% endfor %}
+  {% else %}
+  <h2 class="mb-3">Upload the selection list</h2>
+  <p class="lead">{{order}}</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Upload a file</label>
+    <input type="file" name = "file">
+    <button type="submit" class="btn btn-success">Upload</button>
+    <a href="{% url 'teachers:placement_change' placement.pk %}" class="btn btn-outline-secondary" role="button">Nevermind</a>
+  </form>
+  {% endif %}
+{% endblock %}
