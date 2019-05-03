@@ -1,0 +1,58 @@
+{% extends 'base_teacher.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'teachers:placement_change_list' %}">My Placements</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ placement.company_name }}</li>
+    </ol>
+  </nav>
+  <h2 class="mb-3">
+    {{ placement.company_name }}
+  </h2>
+  <div class="row mb-3">
+    <div class="col-md-6 col-sm-8 col-12">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Save changes</button>
+        <a href="{% url 'teachers:placement_change_list' %}" class="btn btn-outline-secondary" role="button">Nevermind</a>
+        <a href="{% url 'teachers:placement_delete' placement.pk %}" class="btn btn-danger float-right">Delete</a>
+      </form>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-10">
+          <strong>Roll No</strong>
+        </div>
+        <div class="col-2">
+          <strong>Name</strong>
+        </div>
+      </div>
+    </div>
+    <div class="list-group list-group-flush list-group-formset">
+      {% for selected in selected_lists %}
+        <div class="list-group-item">
+          <div class="row">
+            <div class="col-10">
+              <a href="{% url 'teachers:student_delete' placement.pk selected.pk %}">
+             {{ selected.roll_no }}
+              </a>
+            </div>
+            <div class="col-2">
+              {{ selected.name }}
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="list-group-item text-center">
+          <p class="text-muted font-italic mb-0">You haven't added any list yet. Go ahead and <a href="{% url 'teachers:list_add' placement.pk %}">add the placement list</a>.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

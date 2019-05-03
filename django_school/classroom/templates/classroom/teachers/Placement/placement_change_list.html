@@ -1,0 +1,38 @@
+{% extends 'base_teacher.html' %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">My Placements</li>
+    </ol>
+  </nav>
+  <h2 class="mb-3">My Placements</h2>
+  <a href="{% url 'teachers:placement_add' %}" class="btn btn-primary mb-3" role="button">Add Placement</a>
+  <div class="card">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Package</th>
+          <th>Applied Students</th>
+          <th>Selected Students</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for placement in placements %}
+          <tr>
+            <td class="align-middle"><a href="{% url 'teachers:placement_change' placement.pk %}">{{ placement.company_name }}</a></td>
+            <td class="align-middle">{{ placement.package}}</td>
+            <td class="align-middle"></td>
+            <td class="align-middle">{{ placement.selected_count }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">You haven't had any placement yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
