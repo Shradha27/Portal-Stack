@@ -2,10 +2,39 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.forms.utils import ValidationError
+from classroom.models import (Answer, Question, Student, StudentAnswer, Subject, User, Temp2)
 
-from classroom.models import (Answer, Question, Student, StudentAnswer,
-                              Subject, User)
+''' Student Module '''
 
+class ProfileForm(forms.ModelForm):
+
+    model = Temp2
+
+    fname = forms.CharField(max_length = 20)
+    lname = forms.CharField(max_length = 20)
+    dob = forms.DateField()
+    email = forms.CharField(max_length = 40)
+    contactnum = forms.IntegerField()
+
+    egap = forms.IntegerField()
+    tenper = forms.FloatField()
+    tenyop = forms.IntegerField()
+    tweper = forms.FloatField()
+    tweyop = forms.IntegerField()
+
+    regid = forms.IntegerField()
+    rollno = forms.CharField(max_length = 20)
+    gper = forms.FloatField()
+    back = forms.IntegerField()
+
+    class Meta: 
+        model = Temp2
+        fields=('fname','lname','dob','email','contactnum','egap','tenper','tenyop','tweper','tweyop','regid','rollno','gper','back',)
+
+    def form_valid(self, form):
+        user=form.save()
+
+''' Student Module '''
 
 class TeacherSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):

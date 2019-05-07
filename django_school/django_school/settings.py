@@ -58,11 +58,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'django_school.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'static'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {

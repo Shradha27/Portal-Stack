@@ -6,12 +6,89 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, TemplateView, DetailView
 
 from ..decorators import student_required
-from ..forms import StudentInterestsForm, StudentSignUpForm, TakeQuizForm
-from ..models import Quiz, Student, TakenQuiz, User
+from ..forms import StudentInterestsForm, StudentSignUpForm, TakeQuizForm, ProfileForm
+from ..models import Quiz, Student, TakenQuiz, User, NewStudent, Temp2
 
+
+''' Student module '''
+
+'''class ProfileView(TemplateView):
+
+    template_name = 'profile.html'
+    form_class = ProfileForm
+
+    def profile(self,request):
+        
+        MyForm = ProfileForm(request.POST)
+      
+        if MyForm.is_valid():
+
+            profile = MyForm.save(commit = False)
+            profile.user = request.user
+            profile.save()
+
+            fname = MyForm.cleaned_data['fname']
+            lname = MyForm.cleaned_data['lname']
+            dob = MyForm.cleaned_data['dob']
+            email = MyForm.cleaned_data['email']
+            contactnum = MyForm.cleaned_data['contactnum']
+            egap = MyForm.cleaned_data['egap']
+            tenper = MyForm.cleaned_data['tenper']
+            tenyop = MyForm.cleaned_data['tenyop']
+            tweper = MyForm.cleaned_data['tweper']
+            tweyop = MyForm.cleaned_data['tweyop']
+            regid = MyForm.cleaned_data['regid']
+            rollno = MyForm.cleaned_data['rollno']
+            gper = MyForm.cleaned_data['gper']
+            back = MyForm.cleaned_data['back']
+            MyForm = ProfileForm()
+
+def studentProfile1(request):
+        if request.method == 'POST':
+            if request.POST.get('fname'):
+            post=Temp2(request.POST)
+            post.fname= request.POST('fname')
+            post.lname= request.POST('lname')
+            post.dob= request.POST('dob')
+            post.email= request.POST('email')
+            post.contactnumber= request.POST('cnum')
+            post.egap= request.POST('egap')
+            post.tenper= request.POST('tenper')
+            post.tenyop= request.POST('tenyop')
+            post.tweper= request.POST('tweper')
+            post.tweyop= request.POST('tweyop')
+            post.regid= request.POST('regid')
+            post.rollno= request.POST('rollno')
+            post.gper= request.POST('gper')
+            post.back= request.POST('back')
+
+            p=post.save()
+            p.save()'''
+
+@login_required
+@student_required
+def profile_data(request):
+    pdata = get_object_or_404(NewStudent, user=request.user)
+
+    return render(request, 'student/pages/forms/profile.html', {
+        'pdata': pdata
+    })
+
+@method_decorator([login_required, student_required], name='dispatch')
+class ProfileView(DetailView):
+    model = NewStudent
+    context_object_name = 'pr'
+    template_name = 'student/pages/forms/profile.html'
+
+    def get_queryset(self):
+        student = self.request.user.student
+        fname = student.fname
+        return queryset
+
+''' Student Module '''
 
 class StudentSignUpView(CreateView):
     model = User

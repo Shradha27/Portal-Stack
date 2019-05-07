@@ -1,279 +1,529 @@
-<hr>
-<div class="container bootstrap snippet">
-    <div class="row">
-        <div class="col-sm-10">
-            <h1>User name</h1></div>
-        <div class="col-sm-2">
-            <a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <!--left col-->
+{% load static %}<!DOCTYPE html>
+<html lang="en">
 
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Profile</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> 2.13.2014</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Last seen</strong></span> Yesterday</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> Joseph Doe</li>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Profile</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../static/student/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../static/student/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../../static/student/vendors/css/vendor.bundle.addons.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="../../static/student/vendors/icheck/skins/all.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../static/student/css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../../static/student/images/favicon.png" />
+</head>
 
-            </ul>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
-                <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
-            </div>
-
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
-            </ul>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">Social Media</div>
-                <div class="panel-body">
-                    <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <a class="navbar-brand brand-logo" href="../../static/student/index.html">
+         <!-- <img src="../../images/logo.svg" alt="logo" />-->
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="../../static/student/index.html">
+         <!-- <img src="../../images/logo-mini.svg" alt="logo" /> -->
+        </a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center">
+       <!-- <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+          <li class="nav-item">
+            <a href="#" class="nav-link">Schedule
+              <span class="badge badge-primary ml-1">New</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a href="#" class="nav-link">
+              <i class="mdi mdi-elevation-rise"></i>Reports</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
+          </li>
+        </ul>-->
+        <ul class="navbar-nav navbar-nav-right">
+         <!-- <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="mdi mdi-file-document-box"></i>
+              <span class="count">7</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+              <div class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                </p>
+                <span class="badge badge-info badge-pill float-right">View all</span>
+              </div>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="../../images/faces/face4.jpg" alt="image" class="profile-pic">
                 </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium text-dark">David Grey
+                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    The meeting is cancelled
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="../../images/faces/face2.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium text-dark">Tim Cook
+                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    New product launch
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img src="../../images/faces/face3.jpg" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content flex-grow">
+                  <h6 class="preview-subject ellipsis font-weight-medium text-dark"> Johnson
+                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                  </h6>
+                  <p class="font-weight-light small-text">
+                    Upcoming board meeting
+                  </p>
+                </div>
+              </a>
             </div>
-
-        </div>
-        <!--/col-3-->
-        <div class="col-sm-9">
-
-            <ul class="nav nav-tabs" id="myTab">
-                <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-                <li><a href="#messages" data-toggle="tab">Messages</a></li>
-                <li><a href="#settings" data-toggle="tab">Settings</a></li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id="home">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Label 1</th>
-                                    <th>Label 2</th>
-                                    <th>Label 3</th>
-                                    <th>Label </th>
-                                    <th>Label </th>
-                                    <th>Label </th>
-                                </tr>
-                            </thead>
-                            <tbody id="items">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-4 text-center">
-                                <ul class="pagination" id="myPager"></ul>
-                            </div>
+          </li>-->
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="mdi mdi-bell"></i>
+              <span class="count">4</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <a class="dropdown-item">
+                <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
+                </p>
+                <span class="badge badge-pill badge-warning float-right">View all</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium text-dark">Application Error</h6>
+                  <p class="font-weight-light small-text">
+                    Just now
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="mdi mdi-comment-text-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium text-dark">Settings</h6>
+                  <p class="font-weight-light small-text">
+                    Private message
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="mdi mdi-email-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-medium text-dark">New user registration</h6>
+                  <p class="font-weight-light small-text">
+                    2 days ago
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown d-none d-xl-inline-block">
+            <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <span class="profile-text">Hello, Richard V.Welsh !</span>
+              <img class="img-xs rounded-circle" src="../../static/student/images/faces/face1.jpg" alt="Profile image">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+             <!-- <a class="dropdown-item p-0">
+                <div class="d-flex border-bottom">
+                  <div class="py-3 px-4 d-flex align-items-center justify-content-center">
+                    <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
+                  </div>
+                  <div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
+                    <i class="mdi mdi-account-outline mr-0 text-gray"></i>
+                  </div>
+                  <div class="py-3 px-4 d-flex align-items-center justify-content-center">
+                    <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
+                  </div>
+                </div>
+              </a>
+              <a class="dropdown-item mt-2">
+                Manage Accounts
+              </a>-->
+              <a class="dropdown-item" style="margin-top: 20px">
+                Change Password
+              </a>
+              <a class="dropdown-item" href="{% url 'logout' %}" data-toggle="modal" data-target="#logoutModal">Sign Out
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link" style="margin-bottom: -30px">
+              <div class="user-wrapper">
+                <div class="profile-image">
+                  <img src="../../static/student/images/faces/face1.jpg" alt="profile image">
+                </div>
+                <div class="text-wrapper">
+                  <p class="profile-name">Richard V.Welsh</p>
+                  <div>
+                    <small class="designation text-muted">Manager</small>
+                    <span class="status-indicator online"></span>
+                  </div>
+                </div>
+              </div>
+              <!--<button class="btn btn-success btn-block">New Project
+                <i class="mdi mdi-plus"></i>
+              </button>-->
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="profile.html">
+              <i class="menu-icon mdi mdi-backup-restore"></i>
+              <span class="menu-title">My Profile</span>
+            </a>
+          </li>
+          <!--<li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="menu-icon mdi mdi-content-copy"></i>
+              <span class="menu-title">Basic UI Elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="{% static 'student/pages/ui-features/typography.html' %}">Typography</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% static 'student/pages/forms/basic_elements.html' %}">
+              <i class="menu-icon mdi mdi-backup-restore"></i>
+              <span class="menu-title">Form elements</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% static 'student/pages/charts/chartjs.html' %}">
+              <i class="menu-icon mdi mdi-chart-line"></i>
+              <span class="menu-title">Charts</span>
+            </a>
+          </li>-->
+          <li class="nav-item">
+            <a class="nav-link" href="../tables/companies.html">
+              <i class="menu-icon mdi mdi-table"></i>
+              <span class="menu-title">Companies</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% static 'student/pages/icons/font-awesome.html' %}">
+              <i class="menu-icon mdi mdi-sticker"></i>
+              <span class="menu-title">Notices</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% static 'student/pages/icons/font-awesome.html' %}">
+              <i class="menu-icon mdi mdi-sticker"></i>
+              <span class="menu-title">Lists</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">   
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <form class="form-sample" method="POST" action="">
+                    <p class="card-description">
+                      <h4>Personal Details</h4>
+                    </p>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">First Name</label>
+                          <div class="col-sm-9">
+                            {{ pdata.fname }}
+                          </div>
                         </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Last Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="lname" class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <!--/table-resp-->
-
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Gender</label>
+                          <div class="col-sm-9">
+                            <select class="form-control">
+                              <option>Select</option>
+                              <option>Male</option>
+                              <option>Female</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Date of Birth</label>
+                          <div class="col-sm-9">
+                            <input class="form-control" name="dob" placeholder="dd/mm/yyyy"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">E-mail Address</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="email" class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Contact Number</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="contactnumber" class="form-control" placeholder="Do not mention country code"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Password</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <p class="card-description">
+                      <h4>Academic Details</h4>
+                    </p>
                     <hr>
-
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Educational gap in years</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" name="egap" placeholder="Enter in numeric format, eg. 0"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <p class="card-description">
+                      <b>10th Details :</b>
+                    </p>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Percentage</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" name="tenper" placeholder="Convert CGPA to % by mutiplying it with 9.5"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Year of Passing</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control"  name="tenyop" placeholder="yyyy"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <p class="card-description">
+                      <b>12th Details :</b>
+                    </p>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Percentage</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" name="tweper" placeholder="Convert CGPA to % by mutiplying it with 9.5"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Year of Passing</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" name="tweyop" placeholder="yyyy"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <p class="card-description">
+                      <b>Graduation Details :</b>
+                    </p>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Registration ID</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="regid" class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Roll Number</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="rollno" class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Percentage</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" name="gper" placeholder="Enter aggregate percentage"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Current Number of Backlogs</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" name="back" placeholder="Enter in numeric format, eg. 0"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Branch</label>
+                          <div class="col-sm-9">
+                            <select class="form-control">
+                              <option>Select</option>
+                              <option>Computer Science</option>
+                              <option>Information Technology</option>
+                              <option>Civil</option>
+                              <option>Electronics and Communication</option>
+                              <option>Electrical</option>
+                              <option>Mechanical</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div align="center">
+                      <button type="submit" class="btn btn-success mr-2" value="profile">Submit</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                      <a href="{% url 'students:studentProfile'%}" class="btn btn-primary">Start quiz</a>
+                      <button class="btn btn-light">Cancel</button>
+                    </div>
+                  </form>
                 </div>
-                <!--/tab-pane-->
-                <div class="tab-pane" id="messages">
-
-                    <h2></h2>
-
-                    <ul class="list-group">
-                        <li class="list-group-item text-muted">Inbox</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Here is your a link to the latest summary report from the..</a> 2.13.2014</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Hi Joe, There has been a request on your account since that was..</a> 2.11.2014</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Nullam sapien massaortor. A lobortis vitae, condimentum justo...</a> 2.11.2014</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Thllam sapien massaortor. A lobortis vitae, condimentum justo...</a> 2.11.2014</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Wesm sapien massaortor. A lobortis vitae, condimentum justo...</a> 2.11.2014</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">For therepien massaortor. A lobortis vitae, condimentum justo...</a> 2.11.2014</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Also we, havesapien massaortor. A lobortis vitae, condimentum justo...</a> 2.11.2014</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Swedish chef is assaortor. A lobortis vitae, condimentum justo...</a> 2.11.2014</li>
-
-                    </ul>
-
-                </div>
-                <!--/tab-pane-->
-                <div class="tab-pane" id="settings">
-
-                    <hr>
-                    <form class="form" action="##" method="post" id="registrationForm">
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="first_name">
-                                    <h4>First name</h4></label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="last_name">
-                                    <h4>Last name</h4></label>
-                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="phone">
-                                    <h4>Phone</h4></label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-6">
-                                <label for="mobile">
-                                    <h4>Mobile</h4></label>
-                                <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="email">
-                                    <h4>Email</h4></label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="email">
-                                    <h4>Location</h4></label>
-                                <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="password">
-                                    <h4>Password</h4></label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="password2">
-                                    <h4>Verify</h4></label>
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <br>
-                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                                <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
+              </div>
             </div>
-            <!--/tab-pane-->
+          </div>
         </div>
-        <!--/tab-content-->
-
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <!--<footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+              <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
+              <i class="mdi mdi-heart text-danger"></i>
+            </span>
+          </div>
+        </footer>-->
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
     </div>
-    <!--/col-9-->
-</div>
-<!--/row-->
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to sign out?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="..\..\..\..\accounts\logout\">Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- plugins:js -->
+  <script src="../../static/student/vendors/js/vendor.bundle.base.js"></script>
+  <script src="../../static/student/vendors/js/vendor.bundle.addons.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="../../static/student/js/off-canvas.js"></script>
+  <script src="../../static/student/js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
+</body>
+
+</html>

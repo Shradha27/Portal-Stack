@@ -12,7 +12,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 
 from ..decorators import teacher_required
 from ..forms import BaseAnswerInlineFormSet, QuestionForm, TeacherSignUpForm
-from ..models import Answer, Question, Quiz, User
+from ..models import Answer, Question, Quiz, User, NewStudent
 
 
 class TeacherSignUpView(CreateView):
@@ -29,6 +29,15 @@ class TeacherSignUpView(CreateView):
         login(self.request, user)
         return redirect('teachers:quiz_change_list')
 
+
+@login_required
+@teacher_required
+def profile_data(request):
+    pdata = get_object_or_404(NewStudent, user=request.user)
+
+    return render(request, 'classroom/teachers/quiz_change_list.html', {
+        'pdata': pdata
+    })
 
 @method_decorator([login_required, teacher_required], name='dispatch')
 class QuizListView(ListView):

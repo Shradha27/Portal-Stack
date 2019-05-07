@@ -7,6 +7,38 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
 
+''' Student Module '''
+
+class NewStudent(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    fname = models.CharField(max_length = 20)
+    lname = models.CharField(max_length = 20)
+    gender = models.CharField(max_length = 10)
+    dob = models.DateField()
+    email = models.CharField(max_length = 40)
+    contactnum = models.IntegerField()
+
+    egap = models.IntegerField()
+    tenper = models.FloatField()
+    tenyop = models.IntegerField()
+    tweper = models.FloatField()
+    tweyop = models.IntegerField()
+
+    regid = models.IntegerField()
+    rollno = models.CharField(max_length = 20)
+    gper = models.FloatField()
+    back = models.IntegerField()
+    branch = models.CharField(max_length = 30)
+
+    is_placed = models.BooleanField(default = False)
+
+    def __str__(self):
+        return self.fname
+
+''' Student Module '''
+
 
 class Subject(models.Model):
     name = models.CharField(max_length=30)
@@ -74,3 +106,4 @@ class TakenQuiz(models.Model):
 class StudentAnswer(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='quiz_answers')
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='+')
+

@@ -280,8 +280,7 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-
-                  <form class="form-sample">
+                  <form class="form-sample" method="POST" action="">
                     <p class="card-description">
                       <h4>Personal Details</h4>
                     </p>
@@ -291,7 +290,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">First Name</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            {{ pdata.fname }}
                           </div>
                         </div>
                       </div>
@@ -299,7 +298,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Last Name</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input type="text" name="lname" class="form-control"/>
                           </div>
                         </div>
                       </div>
@@ -321,7 +320,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Date of Birth</label>
                           <div class="col-sm-9">
-                            <input class="form-control" placeholder="dd/mm/yyyy" />
+                            <input class="form-control" name="dob" placeholder="dd/mm/yyyy"/>
                           </div>
                         </div>
                       </div>
@@ -331,7 +330,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">E-mail Address</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control"/>
+                            <input type="text" name="email" class="form-control"/>
                           </div>
                         </div>
                       </div>
@@ -339,7 +338,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Contact Number</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Do not mention country code" />
+                            <input type="text" name="contactnumber" class="form-control" placeholder="Do not mention country code"/>
                           </div>
                         </div>
                       </div>
@@ -362,7 +361,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Educational gap in years</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Enter in numeric format, eg. 0"/>
+                            <input type="text" class="form-control" name="egap" placeholder="Enter in numeric format, eg. 0"/>
                           </div>
                         </div>
                       </div>
@@ -376,7 +375,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Percentage</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Convert CGPA to % by mutiplying it with 9.5"/>
+                            <input type="text" class="form-control" name="tenper" placeholder="Convert CGPA to % by mutiplying it with 9.5"/>
                           </div>
                         </div>
                       </div>
@@ -384,7 +383,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Year of Passing</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control"  placeholder="yyyy"/>
+                            <input type="text" class="form-control"  name="tenyop" placeholder="yyyy"/>
                           </div>
                         </div>
                       </div>
@@ -398,7 +397,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Percentage</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Convert CGPA to % by mutiplying it with 9.5"/>
+                            <input type="text" class="form-control" name="tweper" placeholder="Convert CGPA to % by mutiplying it with 9.5"/>
                           </div>
                         </div>
                       </div>
@@ -406,7 +405,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Year of Passing</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control"  placeholder="yyyy"/>
+                            <input type="text" class="form-control" name="tweyop" placeholder="yyyy"/>
                           </div>
                         </div>
                       </div>
@@ -420,7 +419,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Registration ID</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control"/>
+                            <input type="text" name="regid" class="form-control"/>
                           </div>
                         </div>
                       </div>
@@ -428,7 +427,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Roll Number</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control"/>
+                            <input type="text" name="rollno" class="form-control"/>
                           </div>
                         </div>
                       </div>
@@ -438,7 +437,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Percentage</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Enter aggregate percentage"/>
+                            <input type="text" class="form-control" name="gper" placeholder="Enter aggregate percentage"/>
                           </div>
                         </div>
                       </div>
@@ -446,7 +445,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Current Number of Backlogs</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control"  placeholder="Enter in numeric format, eg. 0"/>
+                            <input type="text" class="form-control" name="back" placeholder="Enter in numeric format, eg. 0"/>
                           </div>
                         </div>
                       </div>
@@ -471,7 +470,8 @@
                     </div>
                     <br>
                     <div align="center">
-                      <button type="submit" class="btn btn-success mr-2">Submit</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                      <button type="submit" class="btn btn-success mr-2" value="profile">Submit</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                      <a href="{% url 'students:studentProfile'%}" class="btn btn-primary">Start quiz</a>
                       <button class="btn btn-light">Cancel</button>
                     </div>
                   </form>

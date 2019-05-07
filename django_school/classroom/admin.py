@@ -1,5 +1,5 @@
 from django.contrib import admin
-from classroom.models import User, Subject, Quiz, Question, Answer, Student, TakenQuiz, StudentAnswer
+from classroom.models import User, Subject, Quiz, Question, Answer, Student, TakenQuiz, StudentAnswer, NewStudent
 
 admin.site.register(User)
 admin.site.register(Subject)
@@ -9,3 +9,5 @@ admin.site.register(Answer)
 admin.site.register(Student)
 admin.site.register(TakenQuiz)
 admin.site.register(StudentAnswer)
+admin.site.register(NewStudent)
+

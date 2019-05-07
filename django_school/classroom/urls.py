@@ -1,9 +1,14 @@
 from django.urls import include, path
-
+from django.templatetags.static import static
+from django.conf.urls.static import static
 from .views import classroom, students, teachers
+
+path1=static('student/pages/forms/')
 
 urlpatterns = [
     path('', classroom.home, name='home'),
+
+    path('path1', students.profile_data,name='profile_data'),
 
     path('students/', include(([
         path('', students.QuizListView.as_view(), name='quiz_list'),
@@ -23,3 +28,4 @@ urlpatterns = [
         path('quiz/<int:quiz_pk>/question/<int:question_pk>/delete/', teachers.QuestionDeleteView.as_view(), name='question_delete'),
     ], 'classroom'), namespace='teachers')),
 ]
+
