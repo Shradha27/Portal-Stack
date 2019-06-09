@@ -11,7 +11,7 @@ This project is about making a Training & Placement portal system for Students &
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/vedantv/portal_stack.git
+git clone https://github.com/shradha27/Portal-Stack.git
 ```
 
 Install the requirements:
